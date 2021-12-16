@@ -1,0 +1,59 @@
+server
+project from archtype
+jakartaa payara micro
+
+pom ver8
+--
+entity 
+model-(class) service- @Named @ApplicationScoped
+entityManager em; --obj
+ constructor
+em= Persistence.createEntityManagerFactory("com.name."),createEntityManager();
+getter setter
+name from persistance.xml
+collection<tbl> getdata method
+return em.createNamedQuery("tbl.findAll").getResultList();
+example
+@Inject service sobj;
+@Produces(MediaType.APPLICATION_JSON)
+collection<tbname> get method
+return sobj.getdata();
+
+java -jar payara-micro-5.2021.8.jar --deploy ext/artifact/ext.war --port 8081 --addlibs mysql-connector-java-8.0.23.jar
+--
+client
+service- interface
+befor iface
+@RegisterRestClient(baseUri = "http://localhost:8081/mavenproject4/rest/example")
+in interface
+@GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<CabSize> getAllcabs(); -same name as server
+
+package servlet
+servlet
+  @Inject @RestClient cabServe cb;
+    Collection<CabSize> df;
+  try{
+                 df  = cb.getAllcabs();
+                                       out.println("<select name='sizes'>");  
+
+                for(CabSize i : df ){
+                      out.println("<option value='"+i.getId()+"'>"+i.getSize()+"</option>");
+                 
+                }
+                              out.println("</select>");
+                              
+                        out.println("<input type='submit' name='subm'>"); 
+                        
+                              
+out.println("</form>");
+            }
+            catch(Exception e){
+                    out.println("<h1>Servlet cabServlet at " + e.toString() + "</h1>");
+
+            }
+
+
+
+	
